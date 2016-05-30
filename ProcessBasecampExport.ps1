@@ -10,6 +10,8 @@
 $dirpath = 'C:\Basecamp\account-xyz\projects'
 $cssfilename = 'application.css'
 $csspath = [io.path]::Combine($dirpath, '..', $cssfilename)
+$zipdir = 'projectzips'
+$zippath = [io.path]::Combine($dirpath, '..', "..", $zipdir)
 
 #Update stylesheet reference in each html file
 'Starting update to stylesheet references'
@@ -29,8 +31,6 @@ $dirs | ForEach-Object {Copy-Item -Path $csspath -Destination (Join-Path $_.Full
 
 #Zip each project directory
 'Starting zipping projects'
-$zipdir = 'projectzips'
-$zippath = [io.path]::Combine($dirpath, '..', "..", $zipdir)
 New-Item $zippath -ItemType Directory
 $dirs | ForEach-Object {
     $zipfile = Join-Path $zippath ($_.BaseName.Trim() + '.zip')
